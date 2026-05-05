@@ -9,7 +9,12 @@ if (!fs.existsSync(distDir)) {
   process.exit(1)
 }
 
-const rawSiteUrl = process.env.VITE_SITE_URL || process.env.SITE_URL || ''
+const rawSiteUrl =
+  process.env.VITE_SITE_URL ||
+  process.env.SITE_URL ||
+  readDotenvValue('VITE_SITE_URL') ||
+  readDotenvValue('SITE_URL') ||
+  ''
 const siteUrl = rawSiteUrl.replace(/\/+$/, '')
 
 // Public routes to index. (Add more public pages here if you create them.)
@@ -113,5 +118,37 @@ function escapeXml(s) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&apos;')
+}
+
+function readDotenvValue(key) {
+  // Node scripts don't automatically load Vite's .env into process.env
+  // so we parse it ourselves for sitemap/robots/rss generation.
+  const dotenvPaths = [
+    path.join(root, '.env'),
+    path.join(root, '.env.local'),
+    path.join(root, '.env.production'),
+    path.join(root, '.env.production.local'),
+  ]
+
+  for (const p of dotenvPaths) {
+    if (!fs.existsSync(p)) continue
+    const content = fs.readFileSync(p, 'utf8')
+    const lines = content.split(/\r?\n/g)
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (!trimmed || trimmed.startsWith('#')) continue
+      const idx = trimmed.indexOf('=')
+      if (idx === -1) continue
+      const k = trimmed.slice(0, idx).trim()
+      if (k !== key) continue
+      let v = trimmed.slice(idx + 1).trim()
+      // strip quotes
+      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+        v = v.slice(1, -1)
+      }
+      return v
+    }
+  }
+  return ''
 }
 
