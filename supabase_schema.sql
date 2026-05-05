@@ -1,5 +1,5 @@
 -- ============================================================
--- AUTOMATE 360 — SUPABASE SQL SCHEMA
+-- ALGOGENTA — SUPABASE SQL SCHEMA
 -- Paste this entire file into the Supabase SQL Editor and run
 -- ============================================================
 
@@ -200,12 +200,12 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.leads;
 -- 11. SEED — SUPER ADMIN USER
 -- ────────────────────────────────────────────
 -- Step 1: Go to Authentication > Users in Supabase Dashboard
--- Step 2: Create a new user with email: admin@automate360.ai
+-- Step 2: Create a new user with email: admin@algogenta.com
 -- Step 3: After creation, run this update to make them super_admin:
 --
 -- UPDATE public.profiles
 -- SET role = 'super_admin', full_name = 'Super Admin'
--- WHERE email = 'admin@automate360.ai';
+-- WHERE email = 'admin@algogenta.com';
 
 -- ────────────────────────────────────────────
 -- 12. SAMPLE DATA (optional for testing)

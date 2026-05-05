@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Zap, Eye, EyeOff, AlertCircle, ArrowLeft } from 'lucide-react'
+import { Eye, EyeOff, AlertCircle, ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
+import logo from '../../assets/algogenta-logo.png'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -48,12 +49,16 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-500/15 border border-brand-500/30 mb-4 animate-glow">
-              <Zap size={24} className="text-brand-400" />
+              <img
+                src={logo}
+                alt="Algogenta"
+                className="w-11 h-11 object-contain drop-shadow-[0_10px_24px_rgba(56,189,248,0.22)] brightness-105 contrast-105"
+              />
             </div>
             <h1 className="font-display font-bold text-2xl text-white mb-1">
               Welcome back
             </h1>
-            <p className="text-slate-400 text-sm">Sign in to your Automate360 account</p>
+            <p className="text-slate-400 text-sm">Sign in to your Algogenta account</p>
           </div>
 
           {/* Error */}

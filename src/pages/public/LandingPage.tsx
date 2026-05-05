@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import Navbar from '../../components/public/Navbar'
 import { supabase } from '../../lib/supabase'
+import logo from '../../assets/algogenta-logo.png'
 
 export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
@@ -290,7 +291,7 @@ export default function LandingPage() {
               </div>
               <h2 className="section-title text-4xl text-white mb-6">We're building the future of business communication</h2>
               <p className="text-slate-400 leading-relaxed mb-6">
-                Automate 360 was founded in 2023 with a single mission: eliminate the bottleneck of human availability in business communications. We believe every business deserves enterprise-level AI automation.
+                Algogenta was founded in 2023 with a single mission: eliminate the bottleneck of human availability in business communications. We believe every business deserves enterprise-level AI automation.
               </p>
               <p className="text-slate-400 leading-relaxed mb-8">
                 Our AI voice agents have handled over 2 million calls, booked 500,000 appointments, and generated $50M+ in pipeline for our clients. We're not just a tool — we're your 24/7 digital workforce.
@@ -354,9 +355,9 @@ export default function LandingPage() {
               </p>
               <div className="space-y-4">
                 {[
-                  { icon: '📧', label: 'Email', value: 'hello@automate360.ai' },
+                  { icon: '📧', label: 'Email', value: 'admin@algogenta.com' },
                   { icon: '📞', label: 'Phone', value: '+1 (705) 910-8964' },
-                  { icon: '🌍', label: 'Location', value: '717, 6 Ave SW, Medicine Hat, AB T1A 4T6' },
+                  { icon: '🌍', label: 'Location', value: 'Soan Garden islamabad, Pakistan' },
                 ].map(c => (
                   <div key={c.label} className="flex items-center gap-4">
                     <span className="text-2xl">{c.icon}</span>
@@ -427,14 +428,18 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center">
-                <Zap size={14} className="text-white fill-white" />
+              <div className="w-14 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                <img
+                  src={logo}
+                  alt="Algogenta"
+                  className="w-full h-full object-contain p-1.5 drop-shadow-[0_8px_18px_rgba(56,189,248,0.18)] brightness-105 contrast-105"
+                />
               </div>
               <span className="font-display font-bold text-white">
-                Automate<span className="text-brand-400">360</span>
+                Algogenta
               </span>
             </div>
-            <p className="text-slate-500 text-sm">© 2024 Automate360. All rights reserved.</p>
+            <p className="text-slate-500 text-sm">© 2024 Algogenta. All rights reserved.</p>
             <div className="flex items-center gap-4">
               {[Twitter, Linkedin, Github].map((Icon, i) => (
                 <button key={i} className="text-slate-500 hover:text-brand-400 transition-colors">

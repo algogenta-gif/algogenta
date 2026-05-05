@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Zap } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import logo from '../../assets/algogenta-logo.png'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,11 +29,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center group-hover:bg-brand-400 transition-colors">
-              <Zap size={16} className="text-white fill-white" />
+            <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden group-hover:border-brand-500/30 group-hover:bg-brand-500/5 transition-colors">
+              <img
+                src={logo}
+                alt="Algogenta"
+                className="w-full h-full object-contain p-1.5 drop-shadow-[0_8px_18px_rgba(56,189,248,0.18)] brightness-105 contrast-105"
+              />
             </div>
-            <span className="font-display font-bold text-white text-lg tracking-tight">
-              Automate<span className="text-brand-400">360</span>
+            <span className="font-bold text-white text-lg tracking-tight ">
+              Algogenta
             </span>
           </Link>
 
