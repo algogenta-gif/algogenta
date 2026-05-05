@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 // Public pages
 import LandingPage from './pages/public/LandingPage'
 import LoginPage from './pages/public/LoginPage'
+import BlogListPage from './pages/public/BlogListPage'
+import BlogPostPage from './pages/public/BlogPostPage'
 
 // Dashboard pages
 import SuperAdminDashboard from './pages/superadmin/Dashboard'
@@ -51,6 +53,8 @@ function AppRoutes() {
     <Routes>
       {/* Public */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/blog" element={<BlogListPage />} />
+      <Route path="/blog/:slug" element={<BlogPostPage />} />
       <Route path="/login" element={profile ? <Navigate to={profile.role === 'super_admin' ? '/super-admin' : '/dashboard'} /> : <LoginPage />} />
 
       {/* Super Admin */}

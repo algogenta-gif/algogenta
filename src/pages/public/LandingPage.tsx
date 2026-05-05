@@ -8,6 +8,8 @@ import {
 import Navbar from '../../components/public/Navbar'
 import { supabase } from '../../lib/supabase'
 import logo from '../../assets/algogenta-logo.png'
+import Seo from '../../seo/Seo'
+import { SITE } from '../../seo/site'
 
 export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
@@ -181,6 +183,25 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-dark-900 grid-bg overflow-x-hidden">
+      <Seo
+        title={SITE.tagline}
+        description={SITE.defaultDescription}
+        path="/"
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: SITE.name,
+            url: SITE.url || undefined,
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: SITE.name,
+            url: SITE.url || undefined,
+          },
+        ]}
+      />
       <Navbar />
 
       {/* Hero */}
@@ -195,16 +216,30 @@ export default function LandingPage() {
           </div>
 
           <h1 className="section-title text-5xl md:text-7xl mb-6 fade-in delay-100 leading-[1.1]">
-            <span className="text-white">AI Automation for</span>
+            <span className="text-white">AI Voice Agents for</span>
             <br />
             <span className="bg-gradient-to-r from-brand-400 via-brand-300 to-accent-400 bg-clip-text text-transparent">
-              Calls & Appointments
+              Call Answering & Appointment Booking
             </span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 fade-in delay-200 font-body leading-relaxed">
-            Automate inbound/outbound calls, capture leads, and book appointments using intelligent AI voice agents. Scale your business without scaling your team.
+            AI call answering and AI appointment booking in one platform. Deploy voice agents that qualify leads, route calls, and schedule appointments—built for insurance, medical billing, and home services.
           </p>
+
+          {/* Industries */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 md:gap-3 mb-10 fade-in delay-250">
+            <span className="text-xs md:text-sm text-slate-400">Built for</span>
+            <span className="px-3 py-1.5 rounded-full glass border border-white/10 text-slate-200 text-xs md:text-sm">
+              Insurance
+            </span>
+            <span className="px-3 py-1.5 rounded-full glass border border-white/10 text-slate-200 text-xs md:text-sm">
+              Medical Billing
+            </span>
+            <span className="px-3 py-1.5 rounded-full glass border border-white/10 text-slate-200 text-xs md:text-sm">
+              Home Services
+            </span>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center fade-in delay-300">
             <a href="#contact" className="btn-primary text-base">

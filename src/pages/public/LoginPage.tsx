@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, AlertCircle, ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import logo from '../../assets/algogenta-logo.png'
+import Seo from '../../seo/Seo'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -33,6 +34,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-dark-900 grid-bg flex items-center justify-center p-4 relative overflow-hidden">
+      <Seo title="Login" description="Sign in to your Algogenta account." path="/login" noindex />
       {/* Background orbs */}
       <div className="orb-1 -top-40 -left-40 opacity-40" />
       <div className="orb-2 -bottom-20 -right-20 opacity-30" />

@@ -52,6 +52,12 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <Link
+              to="/blog"
+              className="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              Blogs
+            </Link>
           </div>
 
           {/* CTA */}
@@ -62,6 +68,7 @@ export default function Navbar() {
             >
               Login
             </Link>
+            
             <a
               href="#contact"
               className="btn-primary text-sm py-2 px-5"
