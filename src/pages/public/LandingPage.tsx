@@ -12,6 +12,7 @@ import logo from '../../assets/algogenta-logo.png'
 export default function LandingPage() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState('')
@@ -38,6 +39,18 @@ export default function LandingPage() {
 
       if (error) throw error
 
+      const { error: emailErr } = await supabase.functions.invoke('send-inquiry-email', {
+        body: {
+          kind: 'inquiry',
+          name: inquiryForm.name,
+          email: inquiryForm.email,
+          phone_number: inquiryForm.phone_number,
+          notes: inquiryForm.notes,
+          plan_interest: selectedPlan,
+        },
+      })
+      if (emailErr) throw emailErr
+
       setInquirySubmitted(true)
       setInquiryForm({ name: '', email: '', phone_number: '', notes: '' })
       setTimeout(() => {
@@ -52,11 +65,46 @@ export default function LandingPage() {
     }
   }
 
-  function handleContact(e: React.FormEvent) {
+  async function handleContact(e: React.FormEvent) {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setContactForm({ name: '', email: '', message: '' })
+    setIsSubmittingContact(true)
+
+    try {
+      const { error } = await supabase
+        .from('inquiry_form')
+        .insert([
+          {
+            name: contactForm.name,
+            email: contactForm.email,
+            phone_number: '',
+            notes: contactForm.message,
+            plan_interest: 'Contact Us',
+          },
+        ])
+
+      if (error) throw error
+
+      const { error: emailErr } = await supabase.functions.invoke('send-inquiry-email', {
+        body: {
+          kind: 'contact',
+          name: contactForm.name,
+          email: contactForm.email,
+          phone_number: '',
+          notes: contactForm.message,
+          plan_interest: 'Contact Us',
+        },
+      })
+      if (emailErr) throw emailErr
+
+      setSubmitted(true)
+      setContactForm({ name: '', email: '', message: '' })
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch (error) {
+      console.error('Error submitting contact form:', error)
+      alert('There was an error submitting your form. Please try again.')
+    } finally {
+      setIsSubmittingContact(false)
+    }
   }
 
   const plans = [
@@ -412,8 +460,12 @@ export default function LandingPage() {
                       className="input-dark resize-none"
                     />
                   </div>
-                  <button type="submit" className="btn-primary w-full justify-center">
-                    Send Message
+                  <button
+                    type="submit"
+                    disabled={isSubmittingContact}
+                    className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:transform-none"
+                  >
+                    {isSubmittingContact ? 'Sending...' : 'Send Message'}
                     <ChevronRight size={18} />
                   </button>
                 </form>
