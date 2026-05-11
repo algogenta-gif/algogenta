@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Zap, Phone, Calendar, Users, ArrowRight, Check,
   MessageSquare, BarChart3, Shield, Globe, Sparkles,
-  ChevronRight, Star, Twitter, Linkedin, Github
+  ChevronRight, Star, Twitter, Linkedin, Facebook
 } from 'lucide-react'
 import Navbar from '../../components/public/Navbar'
 import { supabase } from '../../lib/supabase'
@@ -528,10 +528,21 @@ export default function LandingPage() {
             </div>
             <p className="text-slate-500 text-sm">© 2024 Algogenta. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              {[Twitter, Linkedin, Github].map((Icon, i) => (
-                <button key={i} className="text-slate-500 hover:text-brand-400 transition-colors">
+              {[
+                { Icon: Twitter, href: 'https://twitter.com/', label: 'Twitter' },
+                { Icon: Linkedin, href: 'https://www.linkedin.com/company/algogenta', label: 'LinkedIn' },
+                { Icon: Facebook, href: 'https://www.facebook.com/', label: 'Facebook' },
+              ].map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-slate-500 hover:text-brand-400 transition-colors"
+                >
                   <Icon size={18} />
-                </button>
+                </a>
               ))}
             </div>
           </div>
